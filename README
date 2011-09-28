@@ -1,6 +1,9 @@
-This open source heart rate monitor. I wanted a cheap way to log and graph my exercise data. Professional (and expensive) modules exists, but didn’t give me the raw control and data I wanted. This project was inspired by humanapi.org and the maker philosophy (adafruit). Go open source hardware and software.
+This project is open source heart rate monitor. I wanted a cheap way to log and graph my exercise data from my Polar T31 transmitter. Professional and ridiculously expensive modules exists, but did not give me the raw data and control I wanted. This project was inspired by humanapi.org and the maker philosophy (Adafruit). 
 
-If I were to restart this project today (already owning an Android w/Bluetooth and GPS), I believe that I would just get a Polar WearLink®+ transmitter with Bluetooth® and log my information with Android. 
+User license: feel free to use and share code with attribution.
+
+If I were to restart this project today (already owning an Android w/Bluetooth and GPS), I believe that I would just get a Polar WearLink+ transmitter with Bluetooth (http://www.shoppolar.com/_polarususdenstore/cgi-bin/go.cgi/webstore/product?pid=F2222CB2JCAKW63JFVH) and log my information with Android (like http://store.endomondo.com/eu/polar-wearlinkr-transmitter-with-bluetoothr-193.html).
+
 
 hardware:
 Polar T31 transmitter

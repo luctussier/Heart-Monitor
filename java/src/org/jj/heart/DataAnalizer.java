@@ -1,6 +1,7 @@
 package org.jj.heart;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
@@ -64,12 +65,21 @@ public class DataAnalizer {
 		return workouts;
 	}
 
+	public static BufferedImage visualize(Workout workout){
+		return visualize(workout, null);
+	}
+	
+	
 	/**
 	 * Creates a graphic representation of work-out data 
 	 * @param workout
 	 */
-	public static BufferedImage visualize(Workout workout) {
-		int displayX = 800, displayY = 600; // originally 800 by 600  
+	public static BufferedImage visualize(Workout workout, Dimension dimension) {
+		int displayX = 800, displayY = 600; // default values
+		if (dimension != null) {
+			displayX = (int)Math.round(dimension.getWidth());
+			displayY = (int)Math.round(dimension.getHeight());
+		}
 //		int displayX = 1440, displayY = 1080;
 		ArrayList<Beat> beats = workout.getBeats();
 		int rate, time;
@@ -114,15 +124,15 @@ public class DataAnalizer {
 	}
 
 	/**
-	 * Processes a work-out file
+	 * Processes a work-out file in batch mode
 	 * @param logFile  the log file handler
 	 */
 	public static void processFile(File logFile) throws IOException {
 		List<Workout> workouts = DataAnalizer.parseLog(GraphorWindow.loadFile(logFile));
 		Workout first = workouts.get(0);
 		int duration = Math.round(first.getDuration() / 60000);
-		System.out.println("file:" + logFile.getName() + "  workouts:" + workouts.size() + "  duration:" + duration);
-		ImageIO.write(DataAnalizer.visualize(first), "gif",
+		System.out.println("file:" + logFile.getName() + "  workouts:" + workouts.size() + "  time1:" + duration);
+		ImageIO.write(DataAnalizer.visualize(first, new Dimension(1440, 1080)), "gif",
 				new File(logFile.getCanonicalPath().replaceAll("LOG$", "gif")));
 	}
 }

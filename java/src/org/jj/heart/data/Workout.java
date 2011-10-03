@@ -172,6 +172,9 @@ public class Workout {
 			if (!beats.get(i).valid && i <= beats.size()-sampleSize) {
 				beats.get(i).valid = validateSample(beats.subList(i, i+sampleSize));
 			}
+//			if(!beats.get(i).valid){
+//				System.out.println("bad point "+beats.get(i).time);
+//			}
 		}
 		
 		// first pass find first and last valid elements

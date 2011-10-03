@@ -95,16 +95,22 @@ public class DataAnalizer {
 		
 		long startTime = beats.get(workout.getFirstValid()).getTime();
 		float timeScale = 1f / (beats.get(workout.getLastValid()).getTime() - startTime);
-		Point prev, curr;
-		prev = new Point(0, (int) (relativeRate(workout, beats.get(workout.getFirstValid()).getPeriode())) * displayY);
-		graphics.setColor(Color.green);
+		Point prev;
+		prev = new Point(0, (int) (1F - relativeRate(workout, beats.get(workout.getFirstValid()).getPeriode())) * displayY);
+		
 		for (Beat beat : beats.subList(workout.getFirstValid(), workout.getLastValid() + 1)) {
+			Point curr;
 			if (beat.isValid()) {
+				graphics.setColor(Color.green);
 				rate = (int) (relativeRate(workout, beat.getPeriode()) * displayY);
 				time = Math.round((beat.getTime() - startTime) * timeScale * displayX);
 				curr = new Point(time, rate);
 				graphics.drawLine(prev.x, prev.y, curr.x, curr.y);
 				prev = curr;
+			}else{
+				graphics.setColor(Color.red);
+				graphics.drawRect(Math.round((beat.getTime() - startTime) * timeScale * displayX), 0, 1, 1);
+				// evol this could be put at the bottom if I knew why I can only see displayY-18 pixels high
 			}
 		}
 		graphics.dispose();
@@ -113,14 +119,14 @@ public class DataAnalizer {
 	}
 	
 	/**
-	 * Converts a period into the percent of max heart rate
+	 * Converts a period into the percent of max heart rate and inverts value for graphing
 	 * (1/period - 1/max) / (1/min - 1/max) -> min*(max-period) / period*(max-min)
 	 * 6e4/period(ms) = bpm and 6e4/bpm = period in ms
 	 * Note that the max period is the min heart rate
 	 */
 	public static float relativeRate(Workout workout, int period) {
-		return workout.getMin() * (workout.getMax() - period)
-				/ (float) (period * (workout.getMax() - workout.getMin()));
+		return 1f - (workout.getMin() * (workout.getMax() - period)
+				/ (float) (period * (workout.getMax() - workout.getMin())));
 	}
 
 	/**
